@@ -12,4 +12,4 @@ resources:
 images:
   - name: app
     newName: ghcr.io/roylib/cnh-starter-roy
-    newTag: 53a959e
+    newTag: 9e18b0d
