@@ -6,6 +6,7 @@ kind: Kustomization
 namespace: team-dry-roy
 resources:
   - deployment.yaml
+  - pdb.yaml
   - service.yaml
   - httproute.yaml
 images:

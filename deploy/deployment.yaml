@@ -16,6 +16,17 @@ spec:
       labels:
         app: app
     spec:
+      # The app never calls the Kubernetes API, so don't mount a token.
+      automountServiceAccountToken: false
+      # Spread replicas across nodes. ScheduleAnyway keeps pods schedulable
+      # if the cluster has only one node free.
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: app
       containers:
         - name: app
           image: app
@@ -42,10 +53,17 @@ spec:
               path: /healthz
               port: http
             periodSeconds: 10
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: RuntimeDefault
             capabilities:
               drop: ["ALL"]
+      volumes:
+        - name: tmp
+          emptyDir: {}

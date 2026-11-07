@@ -1,0 +1,10 @@
+# Keeps at least one app pod running during node drains and upgrades.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: app
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: app
