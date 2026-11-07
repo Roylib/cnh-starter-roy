@@ -10,5 +10,5 @@ resources:
   - httproute.yaml
 images:
   - name: app
-    newName: ghcr.io/OWNER/REPO
-    newTag: latest
+    newName: ghcr.io/roylib/cnh-starter-roy
+    newTag: 9fb877d
